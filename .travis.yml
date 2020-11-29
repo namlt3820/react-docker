@@ -6,3 +6,14 @@ before_install:
   - docker build -t namlt/react-docker -f Dockerfile.dev .
 script:
   - docker run -e CI=true namlt/react-docker npm run test
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "react docker"
+  env: "ReactDocker-env"
+  bucket_name: "elasticbeanstalk-ap-southeast-1-634549447032"
+  bucket_path: "react docker"
+  on:
+    branch: "master"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
